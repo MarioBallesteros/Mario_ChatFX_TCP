@@ -65,28 +65,35 @@ public class ClientController implements Receiver {
         if (comunicationManager != null) {
             comunicationManager.enviarMensaje(new Message(nombreCliente, messageTxtField.getText()));
             Label label = new Label(" Tú: \n" + messageTxtField.getText());
-            label.setTextAlignment(TextAlignment.RIGHT);
-            label.setBackground(new Background(new BackgroundFill(Color.rgb(85, 190, 83), new CornerRadii(5.0), new Insets(-5.0))));
+            label.setTextAlignment(TextAlignment.LEFT);
+            label.setBackground(new Background(new BackgroundFill(Color.rgb(85, 190, 83), new CornerRadii(5.0), Insets.EMPTY)));
+
             HBox hBox = new HBox(label);
             hBox.setAlignment(Pos.CENTER_RIGHT);
+            HBox.setMargin(label, new Insets(5, 10, 5, 50)); // Aumenta el espacio en el lado izquierdo
+
             messageTextArea.getChildren().add(hBox);
             messageTxtField.setText("");
         }
     }
 
+
     @Override
-    public void recibir(Message mensaje,ComunicationManager comunicationManager) {
-        // ARREGLAR
-        // ARREGLAR
-        // ARREGLAR
+    public void recibir(Message mensaje, ComunicationManager comunicationManager) {
         Platform.runLater(() -> {
-            Label label = new Label(mensaje.getEmisor() +": \n" + mensaje.getTexto());
-            label.setBackground(new Background(new BackgroundFill(Color.rgb(74, 137, 190), new CornerRadii(5.0), new Insets(-5.0))));
+            Label label = new Label(mensaje.getEmisor() + ": \n" + mensaje.getTexto());
+            label.setBackground(new Background(new BackgroundFill(Color.rgb(74, 137, 190), new CornerRadii(5.0), Insets.EMPTY)));
+            label.setWrapText(true);
+
             HBox hBox = new HBox(label);
             hBox.setAlignment(Pos.CENTER_LEFT);
+            HBox.setMargin(label, new Insets(5, 50, 5, 10));
+
             messageTextArea.getChildren().add(hBox);
+            messageTextArea.setSpacing(10);
         });
     }
+
 
     @Override
     public void borrar(ComunicationManager comunicationManager) {
