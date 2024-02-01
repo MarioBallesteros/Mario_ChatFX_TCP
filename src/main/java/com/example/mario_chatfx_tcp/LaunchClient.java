@@ -11,8 +11,8 @@ public class LaunchClient extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(LaunchClient.class.getResource("client-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
-        stage.setTitle("Hello!");
+        Scene scene = new Scene(fxmlLoader.load(), 640, 480);
+        stage.setTitle("SimpleChatFX!");
         stage.setScene(scene);
         stage.show();
     }
