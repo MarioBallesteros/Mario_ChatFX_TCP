@@ -8,41 +8,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChannelManager implements Receiver {
-    List<ComunicationManager> comunications;
-    List<Message> historialMensajes;
+    private List<ComunicationManager> comunications;
+    private List<Message> historialMensajes;
 
     public ChannelManager() {
         this.comunications = new ArrayList<>();
         this.historialMensajes = new ArrayList<>();
     }
 
-
-    public void add(Socket socket) {
-        ComunicationManager comunicationManager = new ComunicationManager(socket,this);
+    public synchronized void add(Socket socket) {
+        ComunicationManager comunicationManager = new ComunicationManager(socket, this);
         comunications.add(comunicationManager);
-
-        for (Message mensaje:historialMensajes) {
-            comunicationManager.enviarMensaje(mensaje);
-        }
-        // y lanzamos el hilo del comunication manager
         Thread thread = new Thread(comunicationManager);
         thread.setDaemon(true);
         thread.start();
+
+        // Envía el historial de mensajes al nuevo cliente
+        for (Message mensaje : historialMensajes) {
+            comunicationManager.enviarMensaje(mensaje);
+        }
     }
 
     @Override
-    public void recibir(Message mensaje, ComunicationManager comunicationManager) {
-        System.out.println(mensaje.getEmisor()+": "+ mensaje.getTexto());
+    public synchronized void recibir(Message mensaje, ComunicationManager comunicationManager) {
         historialMensajes.add(mensaje);
-        for (ComunicationManager comunication: comunications) {
-            if (comunication != comunicationManager){
-                comunication.enviarMensaje(mensaje);
+        for (ComunicationManager com : comunications) {
+            if (com != comunicationManager) {
+                com.enviarMensaje(mensaje);
             }
         }
     }
 
     @Override
-    public void borrar(ComunicationManager comunicationManager) {
+    public synchronized void borrar(ComunicationManager comunicationManager) {
         comunications.remove(comunicationManager);
     }
 }

@@ -8,6 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mario_chatfx_tcp/controlador/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mario_chatfx_tcp/controlador/ClientController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mario_chatfx_tcp/manejador/ChannelManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mario_chatfx_tcp/manejador/ChannelManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mario_chatfx_tcp/manejador/ComunicationManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mario_chatfx_tcp/manejador/ComunicationManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,6 +137,7 @@
       <workItem from="1706543839031" duration="7409000" />
       <workItem from="1706625676714" duration="1097000" />
       <workItem from="1706806327894" duration="8236000" />
+      <workItem from="1706881472317" duration="2188000" />
     </task>
     <task id="LOCAL-00001" summary="cambios clase">
       <option name="closed" value="true" />

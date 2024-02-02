@@ -70,7 +70,7 @@ public class ClientController implements Receiver {
 
             HBox hBox = new HBox(label);
             hBox.setAlignment(Pos.CENTER_RIGHT);
-            HBox.setMargin(label, new Insets(5, 10, 5, 50)); // Aumenta el espacio en el lado izquierdo
+            HBox.setMargin(label, new Insets(5, 10, 5, 50));
 
             messageTextArea.getChildren().add(hBox);
             messageTxtField.setText("");
