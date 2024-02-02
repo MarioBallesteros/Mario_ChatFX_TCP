@@ -16,13 +16,13 @@ public class ComunicationManager implements Runnable {
     public ComunicationManager(Socket socket, Receiver receiver) {
         try {
             this.oos = new ObjectOutputStream(socket.getOutputStream());
+            // hacer flush por si hay algo pendiente en el output stream
             this.oos.flush();
             this.ois = new ObjectInputStream(socket.getInputStream());
             this.receiver = receiver;
         } catch (IOException e) {
             System.out.println("Error al crear ComunicationManager: " + e.getMessage());
-            closeResources();
-            return; // Retornar para evitar seguir ejecutando el constructor.
+            return; // salir para no printear el creado correcto
         }
         System.out.println("Comunication Manager creado correctamente");
     }
@@ -34,12 +34,9 @@ public class ComunicationManager implements Runnable {
             while ((message = (Message) ois.readObject()) != null) {
                 receiver.recibir(message, this);
             }
-        } catch (IOException e) {
-            System.out.println("Error de E/S en ComunicationManager: " + e.getMessage());
-        } catch (ClassNotFoundException e) {
-            System.out.println("Clase no encontrada en ComunicationManager: " + e.getMessage());
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error de ComunicationManager: " + e.getMessage());
         } finally {
-            closeResources();
             receiver.borrar(this);
         }
     }
@@ -47,20 +44,10 @@ public class ComunicationManager implements Runnable {
     public void enviarMensaje(Message mensaje) {
         try {
             oos.writeObject(mensaje);
-            oos.reset(); // Resetear el ObjectOutputStream para manejar objetos modificados.
+            oos.reset();
         } catch (IOException e) {
             System.out.println("Error al enviar mensaje: " + e.getMessage());
-            closeResources();
             receiver.borrar(this);
-        }
-    }
-
-    private void closeResources() {
-        try {
-            if (ois != null) ois.close();
-            if (oos != null) oos.close();
-        } catch (IOException e) {
-            System.out.println("Error al cerrar recursos en ComunicationManager: " + e.getMessage());
         }
     }
 }
